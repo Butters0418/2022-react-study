@@ -1,4 +1,5 @@
 const { useState } = React;
+// 幣別
 const currencyObj = [
   {
     country: '日本',
@@ -21,15 +22,36 @@ const currencyObj = [
     currencyRatio: 493.94,
   },
 ];
+
 function App() {
-  const { currency, setCurrency } = useState(currencyObj);
+  const [currency, setCurrency] = useState([...currencyObj]);
+  const [value, setValue] = useState(0);
+
+  function counter() {
+    setCurrency(
+      currencyObj.map((item, i) => {
+        return {
+          country: item.country,
+          currencyRatio: (item.currencyRatio * value).toFixed(2),
+        };
+      })
+    );
+  }
   return (
     <>
-      <h1>請輸入您要換的台幣</h1>
-      <input type="text" placeholder="台幣" />
-      <input type="button" value="計算" />
-      <p>可以換算</p>
-      <ul></ul>
+      <h1>change price</h1>
+      <input type='number' placeholder='TW' value={value} onChange={(e) => setValue(e.target.value)} />
+      <input type='button' value='計算' onClick={() => counter()} />
+      <p>can change</p>
+      <ul>
+        {currency.map((item, i) => {
+          return (
+            <li key={i}>
+              {item.country} : {item.currencyRatio}
+            </li>
+          );
+        })}
+      </ul>
     </>
   );
 }
