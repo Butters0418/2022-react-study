@@ -24,8 +24,10 @@ const currencyObj = [
 ];
 
 function App() {
+  // 匯率控制
   const [currency, setCurrency] = useState([...currencyObj]);
-  const [value, setValue] = useState(0);
+  // 欄位控制
+  const [value, setValue] = useState(1);
 
   function counter() {
     setCurrency(
@@ -39,10 +41,15 @@ function App() {
   }
   return (
     <>
-      <h1>change price</h1>
-      <input type='number' placeholder='TW' value={value} onChange={(e) => setValue(e.target.value)} />
-      <input type='button' value='計算' onClick={() => counter()} />
-      <p>can change</p>
+      <h1>匯率計算</h1>
+      <input
+        type="number"
+        placeholder="TW"
+        value={value}
+        onChange={(e) => setValue(e.target.value)}
+      />
+      <input type="button" value="計算" onClick={() => counter()} />
+      <p>可以兌換</p>
       <ul>
         {currency.map((item, i) => {
           return (
